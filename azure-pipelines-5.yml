@@ -3,6 +3,10 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
+variables:
+- name: one
+  value: InitialValue
+
 trigger:
 - master
 
@@ -10,9 +14,15 @@ pool:
   name: Hello
 
 steps:
+- script: |
+    echo hello world
+    echo ${{ variables.one }}
+    echo $(one)
+  displayName: 'accessing the varialbes'
+    
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
-
+  
 - script: |
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
