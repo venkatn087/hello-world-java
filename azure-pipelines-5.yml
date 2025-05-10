@@ -4,26 +4,25 @@
 # https://aka.ms/yaml
 
 variables:
-- name: one
-  value: InitialValue
+  global_variable: value    # this is available to all jobs
 
-trigger:
-- master
+jobs:
+- job: job1
+  pool:
+    name: 'Hello'
+  variables:
+    job_variable1: value1    # this is only available in job1
+  steps:
+  - bash: echo $(global_variable)
+  - bash: echo $(job_variable1)
+  - bash: echo $JOB_VARIABLE1 # variables are available in the script environment too
 
-pool:
-  name: Hello
-
-steps:
-- script: |
-    echo hello world
-    echo ${{ variables.one }}
-    echo $(one)
-  displayName: 'accessing the varialbes'
-    
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-  
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- job: job2
+  pool:
+    name: 'Hello'
+  variables:
+    job_variable2: value2    # this is only available in job2
+  steps:
+  - bash: echo $(global_variable)
+  - bash: echo $(job_variable2)
+  - bash: echo $GLOBAL_VARIABLE
