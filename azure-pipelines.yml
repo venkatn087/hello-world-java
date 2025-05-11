@@ -9,6 +9,11 @@ trigger:
 pool:
   name: DevOps
 
+parameters:
+  - name: environment
+    type: string
+    default: 'production'
+
 variables:
   var1: 10
   staticvar: 'myvalue'
@@ -23,13 +28,14 @@ stages:
     value: 100
   jobs:
   - job: A1
-    displayName: "Job-A1 build"
+    displayName: "Job-A1 build deploy to ${{ parameters.environment }}"
     steps:
     - script: |
         echo "Building the application in A1"
         echo ${{ variables.staticvar }}
         echo $(compilevar)
         echo $(isMain)
+        echo $(Pipeline.Workspace)
       displayName: "Build Step"
   - job: A2
     displayName: "Job A2 Test"
