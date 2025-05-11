@@ -14,14 +14,23 @@ variables:
   value: 10
 - group: vargroup1
 
-steps:
-- script: |
-    echo Hello, world!
-    echo the value of var is $(var1)
-  displayName: 'Run a one-line script'
-  workingDirectory: 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
-
+stages:
+- stage: A
+  displayName: "Stage-A Build and Test"
+  jobs:
+  - job: A1
+    displayName: "Job-A1 build"
+    steps:
+    - script: echo "Building the application in A1"
+      displayName: "Build Step"
+  - job: A2
+    displayName: "Job A2 Test"
+    steps:
+    - script: echo "Building the application in A2"
+      displayName: "Test Step"
+      
+- stage: B
+  displayName: "Stage-B Deploy"
+  jobs:
+  - job: B1
+  
