@@ -15,9 +15,9 @@ variables:
 - group: vargroup1
 
 steps:
-- script: echo Hello, world!
-  echo the value of var is $(var1)
-  echo the value of vargroup is $(vargroup1)
+- script: |
+    echo Hello, world!
+    echo the value of var is $(var1)
   displayName: 'Run a one-line script'
   workingDirectory: 
 - script: |
