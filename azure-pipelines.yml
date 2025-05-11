@@ -7,13 +7,21 @@ trigger:
 - master
 
 pool:
-  DevOps: Linux
+  name: DevOps
+
+variables:
+- name: var1
+  value: 10
+- group: vargroup1
 
 steps:
 - script: echo Hello, world!
+  echo the value of var is $(var1)
+  echo the value of vargroup is $(vargroup1)
   displayName: 'Run a one-line script'
-
+  workingDirectory: 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+
