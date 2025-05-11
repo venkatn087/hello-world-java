@@ -12,8 +12,13 @@ pool:
 parameters:
   - name: environment
     type: string
-    default: 'production'
-
+    default: production
+  - name: myMultiString
+    type: string
+    default: default
+    values:
+      - default
+      - ubuntu
 variables:
   var1: 10
   staticvar: 'myvalue'
