@@ -33,4 +33,9 @@ stages:
   displayName: "Stage-B Deploy"
   jobs:
   - job: B1
-  
+    displayName: "Stage B1 Deploy"
+    steps:
+    - script: echo "Building the application B1"
+
+
+
