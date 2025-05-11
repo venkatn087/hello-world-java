@@ -25,7 +25,11 @@ stages:
   - job: A1
     displayName: "Job-A1 build"
     steps:
-    - script: echo "Building the application in A1"
+    - script: |
+        echo "Building the application in A1"
+        echo ${{ variables.staticvar }}
+        echo $(compilevar)
+        echo $(isMain)
       displayName: "Build Step"
   - job: A2
     displayName: "Job A2 Test"
