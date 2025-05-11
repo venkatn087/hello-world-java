@@ -10,13 +10,17 @@ pool:
   name: DevOps
 
 variables:
-- name: var1
-  value: 10
-- group: vargroup1
+  var1: 10
+  staticvar: 'myvalue'
+  compilevar: ${{ variables.staticvar }}
+  isMain: $[eq(variables['Build.SourceBranch'], 'refs/heads/main')]
 
 stages:
 - stage: A
   displayName: "Stage-A Build and Test"
+  variables:
+  - name: var2
+    value: 100
   jobs:
   - job: A1
     displayName: "Job-A1 build"
@@ -25,6 +29,12 @@ stages:
       displayName: "Build Step"
   - job: A2
     displayName: "Job A2 Test"
+    dependsOn: A1
+    condition: succeeded()
+    timeoutInMinutes: 10
+    cancelTimeoutInMinutes: 2
+    workspace: 
+     clean: all
     steps:
     - script: echo "Building the application in A2"
       displayName: "Test Step"
