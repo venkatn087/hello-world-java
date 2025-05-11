@@ -42,6 +42,20 @@ stages:
     steps:
     - script: echo "Building the application in A2"
       displayName: "Test Step"
+
+  - job: A3
+    steps:
+    - bash: echo "##vso[task.setvariable variable=shouldrun;isOutput=true]true"
+      # or on Windows:
+      # - script: echo ##vso[task.setvariable variable=shouldrun;isOutput=true]true
+      name: printvar
+      displayName: "defining the varialbe"
+
+  - job: A4
+    condition: and(succeeded(), eq(dependencies.A.outputs['printvar.shouldrun'], 'true'))
+    dependsOn: A3
+    steps:
+    - script: echo hello from A4
       
 - stage: B
   displayName: "Stage-B Deploy"
@@ -50,6 +64,7 @@ stages:
     displayName: "Stage B1 Deploy"
     steps:
     - script: echo "Building the application B1"
+
 
 
 
